@@ -80,10 +80,10 @@ const Statistics = ({ ratings }) => {
   )
 }
 
-const Stat = ({ name, value }) => {
+const StatisticLine = ({ text, value }) => {
   return (
     <>
-      {name} {value}
+      {text} {value}
       <br />
     </>
   )
@@ -94,9 +94,9 @@ const Ratings = ({ ratings }) => {
 
   return (
     <>
-      <Stat name='good' value={good} />
-      <Stat name='neutral' value={neutral} />
-      <Stat name='bad' value={bad} />
+      <StatisticLine text='good' value={good} />
+      <StatisticLine text='neutral' value={neutral} />
+      <StatisticLine text='bad' value={bad} />
     </>
   )
 }
@@ -104,7 +104,7 @@ const Ratings = ({ ratings }) => {
 const Total = ({ ratings }) => {
   return (
     <>
-      <Stat name='total' value={totalRatings(ratings)} />
+      <StatisticLine text='total' value={totalRatings(ratings)} />
     </>
   )
 }
@@ -112,7 +112,7 @@ const Total = ({ ratings }) => {
 const Average = ({ ratings }) => {
   return (
     <>
-      <Stat name='average' value={averageRatings(ratings)} />
+      <StatisticLine text='average' value={averageRatings(ratings)} />
     </>
   )
 }
@@ -120,7 +120,7 @@ const Average = ({ ratings }) => {
 const Positive = ({ ratings }) => {
   return (
     <>
-      <Stat name='positive' value={positiveRatings(ratings)} />
+      <StatisticLine text='positive' value={positiveRatings(ratings)} />
     </>
   )
 }
