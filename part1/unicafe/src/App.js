@@ -1,9 +1,26 @@
 import { useState } from 'react'
 
+const totalRatings = (ratings) => {
+  const { good, neutral, bad } = ratings
+  return good + neutral + bad
+}
+
+const averageRatings = (ratings) => {
+  const { good, neutral, bad } = ratings
+  return (good - bad) / totalRatings(ratings)
+}
+
+const positiveRatings = (ratings) => {
+  const { good } = ratings
+  const fraction = good / totalRatings(ratings)
+  const percent = fraction * 100 + '%'
+  return percent
+}
+
 const Feedback = ({ state }) => {
-  const { ratings, setters } = state;
-  const { good, neutral, bad } = ratings;
-  const { setGood, setNeutral, setBad } = setters;
+  const { ratings, setters } = state
+  const { good, neutral, bad } = ratings
+  const { setGood, setNeutral, setBad } = setters
 
   const rateGood = () => {
     console.log('counting good rating')
@@ -44,23 +61,57 @@ const Statistics = ({ ratings }) => {
   return (
     <div>
       <h2>Statistics</h2>
-      <DisplayRatings ratings={ratings} />
+      <p>
+        <Ratings ratings={ratings} />
+        <Total ratings={ratings} />
+        <Average ratings={ratings} />
+        <Positive ratings={ratings} />
+      </p>
     </div>
   )
 }
 
-const DisplayRatings = ({ ratings }) => {
-  const { good, neutral, bad } = ratings;
+const Stat = ({ name, value }) => {
+  return (
+    <>
+      {name} {value}
+      <br />
+    </>
+  )
+}
+
+const Ratings = ({ ratings }) => {
+  const { good, neutral, bad } = ratings
 
   return (
     <>
-      <p>
-        good {good}
-        <br />
-        neutral {neutral}
-        <br />
-        bad {bad}
-      </p>
+      <Stat name='good' value={good} />
+      <Stat name='neutral' value={neutral} />
+      <Stat name='bad' value={bad} />
+    </>
+  )
+}
+
+const Total = ({ ratings }) => {
+  return (
+    <>
+      <Stat name='total' value={totalRatings(ratings)} />
+    </>
+  )
+}
+
+const Average = ({ ratings }) => {
+  return (
+    <>
+      <Stat name='average' value={averageRatings(ratings)} />
+    </>
+  )
+}
+
+const Positive = ({ ratings }) => {
+  return (
+    <>
+      <Stat name='positive' value={positiveRatings(ratings)} />
     </>
   )
 }
