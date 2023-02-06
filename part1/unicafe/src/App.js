@@ -70,22 +70,24 @@ const Statistics = ({ ratings }) => {
   return (
     <div>
       <h2>Statistics</h2>
-      <p>
-        <Ratings ratings={ratings} />
-        <Total ratings={ratings} />
-        <Average ratings={ratings} />
-        <Positive ratings={ratings} />
-      </p>
+      <table>
+        <tbody>
+          <Ratings ratings={ratings} />
+          <Total ratings={ratings} />
+          <Average ratings={ratings} />
+          <Positive ratings={ratings} />
+        </tbody>
+      </table>
     </div>
   )
 }
 
 const StatisticLine = ({ text, value }) => {
   return (
-    <>
-      {text} {value}
-      <br />
-    </>
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
   )
 }
 
