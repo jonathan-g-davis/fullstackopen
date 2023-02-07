@@ -4,9 +4,32 @@ function randInt(max) {
   return Math.floor(Math.random() * max)
 }
 
+function findMax(vals) {
+  let max = vals[0]
+  let idx = 0
+  for (let i = 0; i < vals.length; i++) {
+    if (vals[i] > max) {
+      max = vals[i]
+      idx = i
+    }
+  }
+  return idx
+}
+
 const Button = ({ onClick, text }) => {
   return (
     <button onClick={onClick}>{text}</button>
+  )
+}
+
+const Anecdote = ({ anecdotes, votes, index }) => {
+  return (
+    <div>
+      {anecdotes[index]}
+      <br />
+      has {votes[index]} votes
+      <br />
+    </div>
   )
 }
 
@@ -36,14 +59,18 @@ const App = () => {
     setSelected(random)
   }
 
+  const highestRated = () => {
+    return findMax(votes)
+  }
+
   return (
     <div>
-      {anecdotes[selected]}
-      <br />
-      has {votes[selected]} votes
-      <br />
-      <Button onClick={voteForAnecdote} text="vote" />
-      <Button onClick={randomSelection} text="next anecdote" />
+      <h2>Anecdote of the Day</h2>
+      <Anecdote anecdotes={anecdotes} votes={votes} index={selected} />
+      <Button onClick={voteForAnecdote} text="Vote" />
+      <Button onClick={randomSelection} text="Next anecdote" />
+      <h2>Anecdote with the Most Votes</h2>
+      <Anecdote anecdotes={anecdotes} votes={votes} index={highestRated()} />
     </div>
   )
 }
